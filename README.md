@@ -59,3 +59,5 @@ As the current boot was made without this script enabled in the first place, the
 # Bugs
 
 You tell me. Issues, ideas for improvement and pull requests are gladly welcome.
+There is to consider that if a file you modified gets updated, your modified file might "overlay" the updated one, and could cause issues by being too old.
+However without more long-term testing it's hard to tell if this is a realistic situation to happen or not.
