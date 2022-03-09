@@ -31,6 +31,8 @@ This is so that grub is always shown at boot up, which will be needed in case yo
 
 5. Reboot
 
+6. Confirm that it is working by running `df -h` and making sure the entry that is mounted on `/` is of filesystem type `overlayfs-root`
+
 # Uninstall
 
 **Important:** As of right now the most convenient way I can think of to uninstall this still requires connecting an external keyboard.
