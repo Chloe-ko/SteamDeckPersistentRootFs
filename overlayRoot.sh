@@ -49,10 +49,6 @@ mkdir -p /opt/overlay/upper
 mkdir -p /opt/overlay/work
 mkdir -p /opt/newroot
 
-rootDev="/dev/disk/by-partsets/self/rootfs"
-rootMountOpt="defaults"
-rootFsType="ext4"
-
 # move original root
 if ! mount -o "bind,ro" / /opt/lower ; then
     write_log 4 "WARNING: bind mount original root partition failed. Treating it as not mounted."
