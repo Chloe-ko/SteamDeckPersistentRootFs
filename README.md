@@ -8,7 +8,7 @@ Heavily based on https://github.com/fitu996/overlayRoot.sh
 
 **Prerequisites:**
 
-A partition formatted as ext4 with the label "overlay"
+A partition formatted as ext4 with the label "overlay"\
 This can be easily setup by booting into a GParted Live CD and shrinking your home partition to make space.
 
 **Warning:** The first time I did this I had to re-format my home partition as Steam OS suddenly failed to install games.\
@@ -18,7 +18,7 @@ If someone would be willing to try this and see if just the shrinking the home p
 **Installation:**
 
 1. Download the overlayRoot.sh script into your /var directory.\
-The reason we use /var is that the usual places to store executables in are all in the rootfs, and would be wiped on update.
+The reason we use /var is that the usual places to store executables in are all in the rootfs, and would be wiped on update.\
 /var is a separate partition and data on in persistently stays across updates.
 
 2. Make the script be executable by running `sudo chmod +x /var/overlayRoot.sh`
