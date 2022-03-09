@@ -10,6 +10,9 @@ Heavily based on https://github.com/fitu996/overlayRoot.sh
 
 A partition formatted as ext4 with the label "overlay"\
 This can be easily setup by booting into a GParted Live CD and shrinking your home partition to make space.
+https://sourceforge.net/projects/gparted/files/gparted-live-stable/ \
+Downloading the latest .iso here, you can put it onto a USB stick using Rufus or Balena Etcher, and then boot the Deck into it by holding the Volume Down button as you power it on and select the USB as bootable drive.\
+There is enough info on how to partition drives online.
 
 **Warning:** The first time I did this I had to re-format my home partition as Steam OS suddenly failed to install games.\
 However, at the same time, I did a bunch of other things with my partitions so I am unsure whether it was caused by the shrinking, or something else.\
