@@ -2,7 +2,7 @@
 A script made to enable use of a overlay as root filesystem on the Valve Steam Deck.
 This allows you to make changes to the rootfs and not losing your changes on a Steam OS update
 
-Heavily changed fork of https://github.com/fitu996/overlayRoot.sh
+Heavily based on https://github.com/fitu996/overlayRoot.sh
 
 # Installation
 
