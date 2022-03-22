@@ -32,7 +32,7 @@ This is so that grub is always shown at boot up, which will be needed in case yo
 
 4. Run `sudo steamos-readonly disable` to disable the write-protection of the root file system.
 
-5. Run `sudo update-grub`. Optional: After this is done, run `sudo steamos-readonly enable` to restore the default readonly rootfs state.
+5. Run `sudo update-grub`. Optional: After this is done, run `sudo steamos-readonly enable` to restore the write protection of the rootfs.
 
 6. Reboot
 
@@ -55,8 +55,13 @@ Make sure not to accidentally delete anything else.
 
 4. Once booted up, edit `/etc/default/grub` and remove the `init=/var/overlayRoot.sh`. Optionally, also set the timeouts back to 0.
 
-5. Run `sudo update-grub`. Now the boot progress is changed back to not use this script, and you can if wanted delete it from /var.\
+5. Run `sudo steamos-readonly disable` to disable the write protection of the rootfs.
+
+6. Run `sudo update-grub`. Now the boot progress is changed back to not use this script, and you can if wanted delete it from /var.\
 As the current boot was made without this script enabled in the first place, there's no need to reboot.
+
+Optional:
+7. Run `sudo steamos-readonly enable` to restore the write protection of the rootfs.
 
 # Bugs
 
