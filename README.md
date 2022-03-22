@@ -30,11 +30,13 @@ The reason we use /var is that the usual places to store executables in are all 
 **Optional, but highly recommended:** Change `GRUB_TIMEOUT` and `GRUB_RECORDFAIL_TIMEOUT` from 0 to 10 or 5\
 This is so that grub is always shown at boot up, which will be needed in case you want to uninstall this, or if you encounter issues and need to disable it.
 
-4. Run `sudo update-grub`. This might show an error about lacking write rights, but this can be safely ignored.
+4. Run `sudo steamos-readonly disable` to disable the write-protection of the root file system.
 
-5. Reboot
+5. Run `sudo update-grub`. Optional: After this is done, run `sudo steamos-readonly enable` to restore the default readonly rootfs state.
 
-6. Confirm that it is working by running `df -h` and making sure the entry that is mounted on `/` is of filesystem type `overlayfs-root`
+6. Reboot
+
+7. Confirm that it is working by running `df -h` and making sure the entry that is mounted on `/` is of filesystem type `overlayfs-root`
 
 # Uninstall
 
