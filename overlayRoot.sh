@@ -55,7 +55,7 @@ if ! mount -o "bind,ro" / /opt/lower ; then
     originaRoot=""
 fi
 
-mount -t overlay -o lowerdir=/opt/lower,upperdir=/opt/overlay/upper,workdir=/opt/overlay/work overlayfs-root /opt/newroot || \
+mount -t overlay -o index=off -o lowerdir=/opt/lower,upperdir=/opt/overlay/upper,workdir=/opt/overlay/work overlayfs-root /opt/newroot || \
     fail "ERROR: could not mount overlayFS"
 
 write_log 6 "create mountpoints inside the new root filesystem-overlay"
