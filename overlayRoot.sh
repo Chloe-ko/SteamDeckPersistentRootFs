@@ -92,6 +92,17 @@ mount --move /opt/dev /dev || true
 write_log 6 "unmount unneeded mounts so we can unmout the old readonly root"
 mount | sed -E -e 's/^.* on //g' -e 's/ type .*\$//g' | grep -x '^/opt.*\$' | sort -r | while read xx ; do echo -ne "\$xx\0" ; done | xargs -0 -n 1 umount || \
     fail "ERROR: could not umount old root"
+write_log 6 "move var to alternate mount"
+mkdir -p /varoverlay
+mount -t ext4 /dev/disk/by-label/varoverlay /varoverlay
+mkdir -p /varoverlay/lower
+mount --move /var /varoverlay/lower || \
+    fail "ERROR: could not move var to varlower"
+mkdir -p /varoverlay/work
+mkdir -p /varoverlay/upper
+write log 6 "mount var overlay"
+mount -t overlay overlay -o index=off -o lowerdir=/varoverlay/lower,upperdir=/varoverlay/upper,workdir=/varoverlay/work /var || \
+    fail "ERROR: could not mount overlayFS"
 write_log 6 "continue with regular init"
 #exec /bin/sh
 mount -a
