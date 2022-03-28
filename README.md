@@ -8,21 +8,38 @@ Heavily based on https://github.com/fitu996/overlayRoot.sh
 
 **Prerequisites:**
 
-A partition formatted as ext4 with the label "overlay"\
+- **A partition formatted as ext4 with the label `overlay`**\
+\
 This can be easily setup by booting into a GParted Live CD and shrinking your home partition to make space.
 https://sourceforge.net/projects/gparted/files/gparted-live-stable/ \
 Downloading the latest .iso here, you can put it onto a USB stick using Rufus or Balena Etcher, and then boot the Deck into it by holding the Volume Down button as you power it on and select the USB as bootable drive.\
-There is enough info on how to partition drives online.
+There is enough info on how to partition drives online.\
+\
+The size of this partition is up to you, and can be increased later on. But do keep in mind that this partition needs to hold all the packages you manually install and any other changes you make to the rootfs.
 
-**Warning:** The first time I did this I had to re-format my home partition as Steam OS suddenly failed to install games.\
-However, at the same time, I did a bunch of other things with my partitions so I am unsure whether it was caused by the shrinking, or something else.\
-If someone would be willing to try this and see if just the shrinking the home partition causes this issue, it'd be greatly appreciated.
+- **A partition formatted as ext4 with the label `varoverlay`**\
+\
+/var is not part of the rootfs that gets overwritten on update, but it is part of the A/B partition scheme.\
+Manual changes to /var need to be persistent with changes to the rootfs, hence why there's also an overlay for this that can be applied to var-a as well as var-b.\
+\
+This partition can be as big as you want it to be, aswell. I'd recommend ~250MB, as /var mostly holds keys and configurations, so no big files will be saved here.
 
 **Installation:**
 
 1. Download the overlayRoot.sh script into your /var directory.\
 The reason we use /var is that the usual places to store executables in are all in the rootfs, and would be wiped on update.\
-/var is a separate partition and data on in persistently stays across updates.
+However, do consider that this script should be placed in var-a aswell as var-b.
+You can just put it in var, and then run these commands to mount the currently not-active var partition and copy it over:
+    ```
+    sudo su -
+    mkdir /root/othervar
+    mount -t ext4 /dev/disk/by-partsets/other/var /root/othervar
+    cp /var/overlayRoot.sh /root/othervar
+    chmod +x /root/othervar/overlayRoot.sh
+    umount /root/othervar
+    rm /root/othervar -R
+    exit
+    ```
 
 2. Make the script be executable by running `sudo chmod +x /var/overlayRoot.sh`
 
@@ -37,6 +54,19 @@ This is so that grub is always shown at boot up, which will be needed in case yo
 6. Reboot
 
 7. Confirm that it is working by running `df -h` and making sure the entry that is mounted on `/` is of filesystem type `overlayfs-root`
+
+# Restore
+Sometimes, an update will disable overlayRoot.sh\
+To restore it, run these 3 commands:
+
+1. Disable write protection\
+`sudo steamos-readonly disable`
+
+2. Update the grub config\
+`sudo update-grub`
+
+3. Re-enable write protection if wanted\
+`sudo steamos-readonly enable`
 
 # Uninstall
 
