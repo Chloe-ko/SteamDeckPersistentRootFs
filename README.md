@@ -4,6 +4,13 @@ This allows you to make changes to the rootfs and not losing your changes on a S
 
 Heavily based on https://github.com/fitu996/overlayRoot.sh
 
+# Important Note
+While I will leave this repo here for anyone that wants to use it, I actually personally discourage people from using this.\
+When creating this I wanted a way to keep changes on my deck persistent, but this is actually a very flawed solution.\
+This is mostly due to the fact that overlayfs is meant to be used on top of a *non-changing* RO partition.\
+After using this for multiple months, I've come across multiple issues with my Deck that mostly stem from the fact that if Valve updates something in SteamOS that we previously changed, overlayFS will cause the updated file to be "overwritten" using the old, changed one.
+YMMV, but for me this led to some functions breaking after using this script over multiple Deck updates.
+
 # Installation
 
 **Prerequisites:**
@@ -55,6 +62,8 @@ This is so that grub is always shown at boot up, which will be needed in case yo
 
 7. Confirm that it is working by running `df -h` and making sure the entry that is mounted on `/` is of filesystem type `overlayfs-root`
 
+8. Optionally, in `/etc/pacman.conf`, uncomment and change your cache directory from `CacheDir = /var/cache/pacman/pkg/` to `CacheDir = /tmp/cache/pacman/pkg/`. This is to avoid some problems with installation of some larger packages.
+
 # Restore
 Sometimes, an update will disable overlayRoot.sh\
 To restore it, run these 3 commands:
@@ -91,7 +100,10 @@ Make sure not to accidentally delete anything else.
 As the current boot was made without this script enabled in the first place, there's no need to reboot.
 
 Optional:
+
 7. Run `sudo steamos-readonly enable` to restore the write protection of the rootfs.
+
+8. If you've changed the CacheDir in `/etc/pacman.conf` before, comment it back out or simply change it back to it's original value.
 
 # Bugs
 
